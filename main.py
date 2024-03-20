@@ -58,10 +58,7 @@ class MyStates(StatesGroup):
 def del_word_db(message):
     chat_id = message.chat.id
     user_id = session.query(User.id).filter(User.user_id == chat_id)
-    eng_word = message.text
-
-    all_words_object_for_user = session.query(Word.eng).join(UserWord, UserWord.word_id == Word.id).filter(
-        UserWord.user_id == user_id).all()
+    eng_word = message.text.lower()
 
     count_word = session.query(UserWord).filter(UserWord.user_id == user_id).all()
     if len(count_word) == 5:
@@ -69,6 +66,8 @@ def del_word_db(message):
         create_cards(message)
         return
 
+    all_words_object_for_user = session.query(Word.eng).join(UserWord, UserWord.word_id == Word.id).filter(
+        UserWord.user_id == user_id).all()
     all_words_list_for_user = []
     for i in all_words_object_for_user:
         all_words_list_for_user.append(i[0])
@@ -218,10 +217,6 @@ def message_reply(message):
         if text == target_word:
             hint = show_target(data)
             hint_text = ["Отлично!❤", hint]
-            next_btn = types.KeyboardButton(Command.NEXT)
-            add_word_btn = types.KeyboardButton(Command.ADD_WORD)
-            delete_word_btn = types.KeyboardButton(Command.DELETE_WORD)
-            buttons.extend([next_btn, add_word_btn, delete_word_btn])
             hint = show_hint(*hint_text)
         else:
             for btn in buttons:
@@ -230,6 +225,7 @@ def message_reply(message):
                     break
             hint = show_hint("Допущена ошибка!",
                              f"Попробуй ещё раз вспомнить слово 🇷🇺{data['translate_word']}")
+
     markup.add(*buttons)
     bot.send_message(message.chat.id, hint, reply_markup=markup)
 
