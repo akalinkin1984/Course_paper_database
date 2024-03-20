@@ -1,0 +1,12 @@
+[
+  {"eng": "red", "rus": "красный"},
+  {"eng": "green", "rus": "зеленый"},
+  {"eng": "blue", "rus": "синий"},
+  {"eng": "black", "rus": "черный"},
+  {"eng": "family", "rus": "семья"},
+  {"eng": "copybook", "rus": "тетрадь"},
+  {"eng": "book", "rus": "книга"},
+  {"eng": "mouse", "rus": "мышь"},
+  {"eng": "dog", "rus": "собака"},
+  {"eng": "cat", "rus": "кошка"}
+]
