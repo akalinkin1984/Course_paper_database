@@ -10,11 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from models import create_tables, initial_data, Word, User, UserWord
 
 
-print('Бот запущен...')
-
-state_storage = StateMemoryStorage()
 token_bot = input('Введите токен бота: ')
-bot = TeleBot(token_bot, state_storage=state_storage)
 
 driver_db = input('Введите название СУБД: ')
 login = input('Введите имя пользователя: ')
@@ -22,6 +18,11 @@ password = input('Введите пароль: ')
 host = input('Введите host сервера: ')
 port = input('Введите порт сервера: ')
 name_db = input('Введите название БД: ')
+
+state_storage = StateMemoryStorage()
+bot = TeleBot(token_bot, state_storage=state_storage)
+
+print('Бот запущен...')
 
 DSN = f'{driver_db}://{login}:{password}@{host}:{port}/{name_db}'
 engine = sqlalchemy.create_engine(DSN)
